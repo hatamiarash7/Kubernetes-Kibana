@@ -17,7 +17,8 @@ kubectl create secret generic kibana-auth --from-file auth
 
 ## Install
 
-We create a `ConfigMap` for kibana's ENV. See [kibana.yml](https://github.com/elastic/kibana/blob/master/config/kibana.yml) for full list of options.
+* Install [Elasticsearch](https://github.com/hatamiarash7/Kubernetes-Elasticsearch)
+* Create a `ConfigMap` for kibana's ENV. See [kibana.yml](https://github.com/elastic/kibana/blob/master/config/kibana.yml) for full list of options.
 
 ```shell
 kubectl create -f configmap.yml
