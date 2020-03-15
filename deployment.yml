@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  labels:
+    app: kibana
+    env: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+        env: dev
+    spec:
+      volumes:
+      - name: kibana-config-volume
+        configMap:
+          name: kibana
+      containers:
+      - name: kibana
+        image: docker.elastic.co/kibana/kibana-oss:6.4.2
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: kibana-config-volume
+          mountPath: /usr/share/kibana/config
+        env:
+        - name: CLUSTER_NAME
+          value: elasticsearch
+        ports:
+        - name: http
+          containerPort: 5601
+        resources:
+          limits:
+            cpu: 100m
+            memory: 250Mi
